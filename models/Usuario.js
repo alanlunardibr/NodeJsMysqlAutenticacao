@@ -15,9 +15,14 @@ const Usuario = db.define('users', {
     email: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    password : {
+        type: DataTypes.STRING
     }
 })
 
-Usuario.sync();
+//Usuario.sync();
+
+Usuario.sync( { alter:true } );
 
 module.exports =  Usuario; 
