@@ -1,0 +1,16 @@
+{
+  "name": "nodeJsMysql",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/alanlunardibr/nodeJsMysql.git",
+  "author": "Alan Lunardi <alan.lunardi@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.12.0-beta.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
