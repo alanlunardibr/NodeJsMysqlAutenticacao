@@ -1,4 +1,5 @@
 const express = require("express");
+var cors = require('cors')
 const bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 require('dotenv').config();
@@ -9,6 +10,15 @@ const User = require("./models/Usuario.js")
 const app = express();
 
 app.use(express.json());
+
+app.use( (req,res,next) => {
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header("Access-Control-Allow-Methods", ['GET', 'PUT', 'POST', 'DELETE'])
+    //res.header("Access-Control-Allow-Headers ", [ 'X-PINGOTHER', 'Content-Type', 'Authorization'] )
+    //res.header("Access-Control-Allow-Headers ", "X-PINGOTHER',Content-Type, Authorization" )
+    app.use(cors());
+    next()
+})
 
 app.get("/users", eAdmin, async (req, res) => {
     
@@ -166,7 +176,22 @@ app.post("/login", async (req,res) => {
     
 })
 
+app.get("/val-token", eAdmin, async (req, res) => {
+    await User.findByPk(req.userId)
+    .then((user) => {
+        return res.json({
+            erro: false,
+            mensagem: "Token Valido",
+            token
+        })
+    }).catch( ()=> {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro : Necessário Realizar Login"
+        })
+    } )
 
+})
 /*
 async function validarToken(req, res,next ){
     //return res.json( { message: "Token Valido" } )

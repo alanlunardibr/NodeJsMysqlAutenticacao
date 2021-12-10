@@ -6,14 +6,13 @@ module.exports = {
     eAdmin: async function validarToken(req, res,next ){
         //return res.json( { message: "Token Valido" } )
         const authHeader = req.headers.authorization;
-        const [bearer, token ] = authHeader.split(' ');
-        if(!token){
+        if(!authHeader){
             return res.status(400).json({
                 erro: true,
                 mensagem: "Erro autenticação"
             })
         }
-    
+        const [bearer, token ] = authHeader.split(' ');
         try {
             const decoded = await promisify(jwt.verify)(token, process.env.SECRET);
             req.userId=  decoded.id;
